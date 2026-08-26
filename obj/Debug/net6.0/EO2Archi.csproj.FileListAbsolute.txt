@@ -1,0 +1,13 @@
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\bin\Debug\net6.0\EO2Archi.deps.json
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\bin\Debug\net6.0\EO2Archi.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\bin\Debug\net6.0\EO2Archi.pdb
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.csproj.AssemblyReference.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\MyPluginInfo.cs
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.AssemblyInfoInputs.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.AssemblyInfo.cs
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.csproj.CoreCompileInputs.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\refint\EO2Archi.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\EO2Archi.pdb
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2Archi\obj\Debug\net6.0\ref\EO2Archi.dll
