@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "XNWq2KmQyF4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\custo\\Desktop\\EO2_Arch-Dev\\EO2HD Patcher\\EO2HD Patcher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\custo\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512",
+    "C:\\Users\\custo\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.17\\microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\custo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.17\\microsoft.windowsdesktop.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\custo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.17\\microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\custo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.17\\microsoft.netcore.app.host.win-x64.8.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

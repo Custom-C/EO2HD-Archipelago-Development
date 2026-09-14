@@ -1,0 +1,374 @@
+ Skill data all follows the same basic structure. Here's one example.
+
+ {
+      "skillName":            string, Japanese name. For example, "SWORDMAN  ＨＰブースト" = Landsknecht HP Boost.
+      "skillNo":              Unique skill ID number.
+      "skillMaxLevel": 10,    Self-explanatory.
+      "skill_pattern": 10,                Unknown currently.
+      "need_parts": 0,        Parts used, if any. Head = 1, Arm = 2, Leg = 3
+      "use_masterly": [                   Unknown currently.
+        0,
+        0
+      ],
+      "trg_area": 0,                      Area it effects. 0 = single target, 5 = self-target.
+      "trg_side": 0,                      Side of the field targeted. 0 = party, 1 = enemy.
+      "use_scene": 0,                     Graphics scene, presumably?
+      "ud_efficacy_type": 0,              No idea.
+      "ud_efficacy_afbit": 0,             No idea.
+      "bit": 0,                           No idea.
+      "typeValue": [                      Generally understood.
+        {
+          "type": 51,                     No idea what this is, but...
+          "value": [                      These are the numbers behind the scenes
+            102,                          for each level, as an int representing a %.
+            104,                          So, for example, at level 3, this boosts
+            107,                          the character's HP by 107%.
+            110,
+            114,
+            121,
+            126,
+            131,
+            137,
+            145
+          ]
+        }
+      ]
+    }
+    Some of these values have many different entries:
+        use_masterly (an array of two potential Mastery skills to use for prereqs.)
+          1: Axes
+          2: Swords
+          3: Bows
+          4: Shields
+          5: Whips
+
+        bit (is a bitmask of uncertain size - at least 8 bytes?)
+             results below are currently with the individual bits.
+          bit 0: This skill interacts with Cut damage
+          bit 1: This skill interacts with Bash damage
+          bit 2: This skill interacts with Stab damage
+          bit 3: This skill interacts with Fire damage
+          bit 4: This skill interacts with Ice damage
+          bit 5: This skill interacts with Volt damage
+          bit 6: This skill interacts with Head Bind
+          bit 7: This skill interacts with Arm Bind
+          bit 8: This skill interacts with Leg Bind
+          bit 9: This skill interacts with Instant Death
+          bit 10: This skill interacts with Petrification
+          bit 11: This skill interacts with Sleep
+          bit 12: This skill interacts with Paralysis?
+          bit 15: This skill interacts with Poison
+          bit 21: This skill reacts to an attack against it?
+        typeValue.type
+          1: TP cost
+          2: Skill damage percentage
+          3: action speed multiplier
+          4: Skill accuracy
+          8: % chance of activation
+          9: % reduction of odds for future activations
+          14: # of steps an effect is active for
+          18: Affliction Rate for ailments
+          19: Poison Base Damage
+          101: (enemy to-hit reduction %)
+
+
+    So, the ones that aren't obvious are:
+    skill_pattern
+    need_parts (specifically, what parts correspond to what value)
+    use_masterly
+    trg_area (specifically, what values correspond to what ranges)
+    trg_side (ally vs enemy?)
+    ud_efficacy_type
+    ud_efficacy_afbit
+    bit
+    "type" in "typeValue". (The other parts are clear.)
+
+    SWORDMAN  ＨＰブースト (HP Boost)
+      skill_pattern 10
+      trg_area 0
+      trg_side 0
+      use_scene 0
+      ud_efficacy_type 0
+      ud_efficacy_afbit 0 
+      bit 0
+    
+    The stat-ups are identical, except they all use type 50 instead of 51, and the values correlate with those values instead.
+    Escape Rate Up is identical, except it uses type 52, and also correlates with its values.
+    
+    SWORDMAN 剣マスタリー (Sword Mastery)
+      skill_pattern 11
+      type 15
+      
+    SWORDMAN カウンター (Counter)
+      skill_pattern 5
+      bit 2097159 (0010 0000 0000 0000 0000 0111. Bit 21. 
+      two entries in typeValue:
+        type 8 (which correlates to the % chance of Counter activating)
+        type 5 (which correlates to the % damage that gets reflected)
+        
+    SWORDMAN ウォークライ (War Cry)
+      skill_pattern 4
+      need_part 1 (so head is 1)
+      trg_area 5 (self-target?)
+      trg_side 0
+      use_scene 3 (?)
+      ud_efficacy_type 1
+      ud_efficacy_afbit 7,
+      bit 63 (0011 1111. All damage types.)
+      type 1 (correlates to the TP cost)
+      type 3 (correlates to the action speed?)
+      type 100 (correlates to the attack boost)
+      type 104 (correlates to the damage taken boost)
+      
+    SWORDMAN ボンテージケア ('Bondage Care', i.e. Unbound)
+      skill_pattern 9
+      trg_area 0
+      trg_side 0
+      use_scene 3
+      bit 448 (0001 1100 0000. There are three binds, maybe bits 6/7/8 are them?)
+      type 1 (correlates to TP cost, seems pretty concrete.)
+      type 3 (correlates to action speed, also seems concrete.)
+      type 10 (roughly correlates to how many binds it removes?? Something is wrong, though.)
+      
+    SWORDMAN トルネード (Tornado)
+      skill_pattern 0
+      need_parts 2 (so arms is 2)
+      use_masterly [2, 0]
+      trg_area 4 (note that Tornado splashes)
+      trg_side 1
+      use_scene 3
+      bit 1 (cut)
+      type 2 (correlates to primary target damage)
+      type 4 (correlates to accuracy)
+      type 22 (correlates to splash damage %)
+      
+    SWORDMAN ハヤブサ駆け ('Falcon Run', Allslash)
+      skill_pattern 0
+      need_parts 3 (Legs)
+      use_masterly [2,0] (notably, this means both sword skills use [2,0]
+      trg_area 3 (2-4 enemies randomly, each being hit once)
+      trg_side 1 (pretty much assures that side 0 is party, side 1 is enemy)
+      use_scene 3
+      type 2 (correlates to damage %, pretty well confirmed)
+      type 4 (correlates to accuracy, confirmed enough)
+      type 6 (Looks complicated at first, but is actually just the weight of hitting more times.
+          So, for example, level 3 is 722305. That's 72%/23%/5% to hit 1/2/3 times.
+
+    SWORDMAN チェイスファイア ('Chase Fire', Blazer)
+      skill_pattern 6
+      use_masterly [2,1] (notably, I skipped past the axe skills which used [1,0],
+          so this is likely the Mastery skill used to increase damage.
+          I'll keep track of other mastery types, but I think use_masterly is figured out.
+      trg_area 1 (kinda targets all enemies, right?)
+      use_scene 3
+      bit 8
+      type 8 (correlates to chance of activation. With Counter, seems to indicate just % odds of activation.)
+      type 9 (correlates to chance reduction after an activation)
+      
+    The other chaser skills are identical, except for bit;
+    Ice Chaser uses bit 16, Volt Chaser uses bit 32
+    So, bit is (in part) the damage type of the attack. This means that Chasers aren't composites.
+    However, that's not all that bit does, since Unbound's was 448 (0001 1100 0000) and War Cry's is 63 (0011 1111)
+    So, for example...
+    
+    SWORDMAN フルゲイン ('Full Gain', All Out, their Force Skill??)
+      Had to pull up the gamefaqs to confirm that this is, in fact, the Force Skill
+    trg_area 1 (targets all enemies)
+    use_scene 3
+    bit 268435457 (0001 0000 0000 0000 0000 0000 0000 0001)
+      That's an eight-byte bitmask. Which, hey, it does correlate with dealing Cut damage...
+      
+    RANGER  先制ブースト ('First-Strike Boost', Survivalist's Ambush)
+      skill_pattern 10
+      type 23 (correlates with the values within Ambush, i.e. more preemptives)
+      
+    RANGER 危機感知 ('Crisis Awareness', Sagacity)
+      skill_pattern 10
+      type 5 (correlates with the values within Sagacity, i.e. reduce ambushes)
+      
+    RANGER アクトファースト ('Act First', 1st Hit)
+      skill_pattern 10
+      trg_area 5 (self-target)
+      type 5 (correlates with 1st Hit's chances. Shared with Sagacity, though.)
+      
+    RANGER  アザ―ズステップ ('Others' Step', 1st Turn)
+      skill_pattern 15
+      trg_area 0 (select an ally)
+      type 5 (This is probably why it's broken, because this is probably supposed to be type 8?)
+
+(tabs get changed here because this is when I moved to notepad from Rider)
+
+	RANGER チェインダンス ('Chain Dance', Baitstep)
+      		skill_pattern 4
+		trg_area 5 (self-target, pretty confident with this one now)
+		use_scene 3
+		ud_efficiency_type 3
+		type 101 (enemy to-hit % reduction)
+		type 102 (provoke rate increase)
+	
+	RANGER ダブルショット ('Double Shot', 2-Bolt)
+		skill_pattern 0
+		use_masterly [3,0] (bow)
+		trg_area 2 (random enemies)
+		use_scene 3 (I'll mention whenever this ISN'T 3 or 0 from now on)
+		bit 4 (it does do Stab damage.)
+		type 12 (# of hits? Ricochet's a good verification of this one)
+
+	RANGER スリープアロー ('Sleep Arrow', Sleeper)
+		skill_pattern 0
+		trg_area 0 (single target, pretty confident on that.)
+      		bit 2052 (1000 0000 0100. Bit 11 = sleep?)
+		type 18 (Infliction rate?)
+	
+	RANGER パライズアロー ('Paralyze Arrow', Number)
+		skill_pattern 0 (damaging skill?)
+		bit 4100 (0001 0000 0000 0100. Bit 12 = Paralysis?)
+		type 18 (Infliction rate.)
+
+	RANGER ポイズンアロー ('Poison Arrow', Poisoner)
+		skill_pattern 0
+		bit 32772 (1000 0000 0000 0100. Bit 15 = Poison?)
+		type 19 (Poison Base Damage?)
+
+	RANGER ソニックステップ ('Sonic Step', Velocity)
+		skill_pattern 4
+		ud_efficiency_type 2
+		type 103 (AGI % multiplier)
+
+	RANGER 警戒斥候 ('Sentry Scout', Patrol)
+		skill_pattern 19,
+		trg_area 1 (whole party?)
+		use_scene 2
+		type 5 (correlates to the % damage taken by damage tiles on the map)
+		type 14 (correlates to the # of steps the effect lasts)
+		
+	RANGER 警戒歩行 ('Walk With Caution', Stalker)
+		skill_pattern 17,
+		trg_area 1 (whole party?)
+		use_scene 2
+		type 14 (correlates to the # of steps the effect lasts. Pretty confident.)
+		type 5 (Danger Value multiplier)
+
+	Ranger 夢幻陣形 ('Illusory Formation', Airwalk)
+		Skill_pattern 4
+		ud_efficacy_type 2
+		type 101 (enemy to-hit reduction %)
+		bit 268435456 (0001 0000 0000 0000 0000 0000 0000 0000. Does bit 28 indicate Force skills?)
+
+	PALADIN  盾マスタリー (Protector's Shield Mastery)
+		Skill_pattern 11
+		Type 15 (% of all damage taken)
+
+	Paladin オートガード ('Auto-Guard', En Garde)
+		Skill pattern 7
+		bit 2097152 (0010 0000 0000 0000 0000 0000. It lines up with Counter, so maybe bit 21 is 'reactive to attack'?)
+		type 5 (correlates to % of activation. Weird.)
+
+	Paladin 加護 ('Blessing', HP Regen)
+		Skill pattern 10
+		Type 23 (HP regened per turn)
+
+	Paladin リフレッシュ (Refresh)
+		Skill pattern 9
+		Bit 261120 (0011 1111 1100 0000 0000.
+			These bits do at least cover the range of ailments I know.
+			Bits 10-17 entirely contain 11, 12, and 15.)
+		Type 11 (This is interesting. It may also correlate to ailments.
+			Refresh @ 1 can only heal Blind (Type 11[0] is 1)
+			Refresh @ 2 can then heal Poison and Sleep (Type 11[1] is 3)
+			Refresh @ 3 can heal Fear and Paralysis (Type 11[2] is 5)
+			Refresh @ 4 can heal Curse and Confusion (Type 11[3] is 7)
+			Refresh @ 5 gains no other ailments it can cure (Type 11[4] is still 7)
+				However, this doesn't fully correlate with the bits. 
+				Poison is bit 15, for example.)
+
+	Paladin 挑発 ('Provocation', Provoke)
+		skill_pattern 4
+		ud_efficacy_type 5
+		ud_efficacy_afbit 7
+		type 102 (Provoke rate increase, confirmed.)
+		type 104 (Physical damage taken multiplier)
+	
+	Paladin フロントガード (Front Guard)
+		skill_pattern 7
+		use_masterly [4,0] (Shield)
+		trg_area 1 (front row)
+		bit: 8388615 (1000 0000 0000 0000 0000 0111. Dunno what bit 23 does yet.)
+		Type 5: Percentage the damage is reduced by. (Type 5 really just seems to be the generic effect type, huh?)
+		Type 9: Reduction of future activation chance (seems legit enough)
+
+	Paladin バックガード (Rear Guard)
+		skill_pattern 7
+		trg_area 1 (back row - so is 1 just a row?)
+		bit: 16777223 (0001 0000 0000 0000 0000 0000 0111. Dunno what bit 24 does yet, either.)
+
+	Paladin フルガード (Full Guard)
+		skill pattern 7
+		trg_area 1 (the whole party??)
+		bit 25165831 (0001 1000 0000 0000 0000 0000 0111. Bits 23 and 24 might be forced row interactions, then?)
+
+	Paladin チョイスガード ('Choice Guard', 1 Guard)
+		skill pattern 7
+		trg_area 0 (single target)
+		bit 33554439 (0010 0000 0000 0000 0000 0000 0111. Bit 25 now active. ???)
+
+	Paladin パリング ('Parrying', Parry)
+		skill pattern 7
+		bit 3145735 (0011 0000 0000 0000 0000 0111. Great, now bits 20 and 21 are active this time.
+			(Notably, however, bit 21 being 'interacts with being hit' isn't contradicted yet.)
+
+	Paladin 渾身ディフェンス ('All-Out Defense', Fortify)
+		skill pattern 4
+		ud_efficacy_type 5
+		ud_efficacy_bit 7
+		type 104 (Physical damage taken multiplier, pretty much confirmed.)
+
+	Paladin シールドスマイト ('Shield Smite', Smite)
+		Skill pattern 0
+		Bit 130 (1000 0010. Does Bash damage and attempts Arm Bind, so bit 7 might be Arm Bind.
+				That does line up with the bind heal on L...)
+
+	Paladin ファイアガード ('Fire Guard', Fire Wall)
+		Skill pattern 7
+		Trg_area 1 (whole party again)
+		bit 25165832 (0001 1000 0000 0000 0000 0000 1000. Fire damage checks out. Bits 23 and 24, again, might be targeted rows. We'll have to see.)
+		Type 104 (This means it's for all damage taken multipliers, not just physical. It also means it's active effects, not necessarily things that take up a buff slot.
+		Type 24 (Damage absorption percentage.)
+		
+	Dark Hunter アナコンダ (Anaconda)
+		Skill pattern 0
+		Use_masterly 5 (Whip)
+		Bit 32769 (1000 0000 0000 0001). Reasonable to assume bit 15 is Poison.
+		Type 19 (Poison base damage. Can probably assume that's correct.)
+
+	Dark Hunter ヘッドボンテージ ('Head Bondage', Gag)
+		Skill pattern 0
+		Bit 65 (Bit 6 is Head Bind, then.)
+
+	Dark Hunter ジエンド ('The End', Climax?)
+		Skill pattern 15
+		Bit 513 (0010 0000 0001. Bit 9 is Instant Death?)
+
+	Dark Hunter ヒュプノバイト ('Hypnobite', Hypno)
+		Skill pattern 0
+		Bit 2052 (1000 0000 0100. Bit 11 is Sleep, confirmed.)
+
+	Dark Hunter カタストロフ ('Catastrophe', Petrify)
+		Skill pattern 0
+		Bit 1028 (0100 0000 0100. Petrification is bit 10, which makes sense.)
+
+	Dark Hunter トラッピング ('Trapping', Bait)
+		Skill pattern 5
+		Bit 140509191 (1000 0110 0000 0000 0000 0000 0111. Bit 21, 22, 27 are unknowns here.
+			Bit 21 is almost certainly at this point 'reaction to an attack'.
+			Per kya, one of these might make the attack inherit the damage type of the weapon.
+	
+	Dark Hunter トラッピングⅡ ('Trapping 2', Magibait)
+		Skill pattern 5
+		Bit 140509240 (1000 0110 0000 0000 0000 0011 1000. Elements check out. Bits are the same otherwise as Bait.)
+	
+	
+	...I've decided to do this with code instead.
+		
+
+types confirmed: 1 (TP), 2 (dmg%), 3 (speed%), 4 (acc), 8 (% odds of activation), 9 (reduction of future activation chance) 14 (# of tiles the effect is active for), 18 (Infliction Rate for ailments), 101 (enemy to-hit reduction % buff), 102 (Provoke rate increase buff), 104 damage taken multiplier active effect)

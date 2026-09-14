@@ -1,0 +1,23 @@
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\EO2HD Patcher.exe
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\EO2HD Patcher.deps.json
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\EO2HD Patcher.runtimeconfig.json
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\EO2HD Patcher.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\EO2HD Patcher.pdb
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher_MarkupCompile.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher_MarkupCompile.lref
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.g.resources
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.AssemblyInfoInputs.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.AssemblyInfo.cs
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.csproj.CoreCompileInputs.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\refint\EO2HD Patcher.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.pdb
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.genruntimeconfig.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\ref\EO2HD Patcher.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.csproj.AssemblyReference.cache
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Pa.5D9E10E2.Up2Date
