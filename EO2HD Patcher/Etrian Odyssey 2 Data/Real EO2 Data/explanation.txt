@@ -1,0 +1,17 @@
+This folder is where I keep any data that (AFAIK) cannot be legally saved to the git.
+
+This includes...
+    Anything extracted from the EO2 decompilation done by IL2CPPInspector
+    JSONs from the Unity bundles
+    Anything from MasterData directly
+    
+The intention is for anything referenced here to be eventually replaced by data extracted
+from the game installation itself when the user runs the patcher.
+
+However, I'll leave a filename and the explanation of what it contains here so that anyone who copies the project can produce their own copy.
+
+There is one exception: LagaardHelpers, which contains helper functions for these that otherwise don't rely on the game's code.
+
+LagaardEnums: contains Enums from the IL2CPPInspector, maintaining their namespaces.
+    So, for example, an enum Enum1 in Master.cs in a class Class1 will be called MasterClass1Enum1.
+    For those in global.cs, the first part will be omitted (e.g. being called Class1Enum1).

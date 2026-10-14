@@ -55,7 +55,11 @@ public class FormationData
                 formData[4]);
             //For whatever reason, there are values that produce empty formations anyway.
             //So, lazily, we'll just check if the ToString is a certain minimum length.
-            if (toAdd.ToString().Length >= 16)
+            //if (toAdd.ToString().Length >= 16)
+            
+            //...But these might be how the game differentiates 'encounter tables'. It would explain why there are duplicates.
+            //We'll move that above check to the output.
+
                 _formations.Add(toAdd); 
 
             //continue to loop until we reach the end of our file.
@@ -139,9 +143,18 @@ public class FormationData
     {
         //empty the file first
         File.WriteAllText(outputPath, "");
+        int counter = 1; //encounter table counter??
+        File.AppendAllText(outputPath, "\t\tEncounter Table 1:\n");
         foreach (Formation encounter in _formations)
         {
-            File.AppendAllText(outputPath, encounter.ToString(enemies));
+            Console.WriteLine(encounter.ToString(enemies).Length);
+            if (encounter.ToString(enemies).Length <= 28) //It got longer due to extra details
+            {
+                //empty encounter
+                File.AppendAllText(outputPath, "\t\tEncounter Table " + ++counter + ":\n");
+            }
+            else
+                File.AppendAllText(outputPath, encounter.ToString(enemies));
         }
 
         Console.WriteLine(outputPath);

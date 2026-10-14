@@ -21,3 +21,6 @@ C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\ref\E
 C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.csproj.AssemblyReference.cache
 C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Pa.5D9E10E2.Up2Date
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\DungeonViewer.g.cs
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\DungeonViewer.baml
+C:\Users\custo\Desktop\EO2_Arch-Dev\EO2HD Patcher\obj\Debug\net8.0-windows\EO2HD Patcher.sourcelink.json

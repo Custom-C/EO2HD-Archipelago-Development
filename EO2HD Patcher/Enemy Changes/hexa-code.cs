@@ -112,6 +112,9 @@ public class HexaCode
             //something went wrong.
             if (toAdd.EnemyId[0] != 'e' || toAdd.RawData[enData.Length - 1] != 0x00)
             {
+                Console.WriteLine("Received garbage data in EnemyData decoder, tossing this input.");
+                Console.WriteLine("starts with " + toAdd.EnemyId[0] + 
+                                  ", ends with " + toAdd.RawData[enData.Length - 1].ToString("X2"));
                 break; //exit without adding the garbage data
             }
             
@@ -261,7 +264,7 @@ B8 E1 06 gets STR and VIT
 
 So, 64 08 6E2 should get TEC and AGI?
 
-Well, wait. 64 = 100. That is AGI. AGI is the one stat I could always pick out.
+Well, wait. 0x64 = 100. That is AGI. AGI is the one stat I could always pick out.
 
 6E2 = 1762 = 110r2
 

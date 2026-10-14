@@ -5,8 +5,349 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO2HD_Patcher"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="EO2 Archipelago Patcher" Height="600" Width="900">
+    <StackPanel>
+        <Grid 
+            Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
 
-    </Grid>
+                <ColumnDefinition Width = "auto"/>
+                <ColumnDefinition Width = "auto"/>
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Row = "0"
+                Grid.Column = "0"
+                Width = "auto"
+                Content="Location of Etrian Odyssey 2.exe:  "
+                Click = "GetFilePath">
+            </Button>
+            <Label
+                Name= "EO2PathLabel"
+                Grid.Row = "0"
+                Grid.Column = "1"
+                Foreground = "LightSlateGray">
+                <Label.Background>
+                    White
+                </Label.Background>
+            </Label>
+        </Grid>
+        
+        <!-- Main Grid -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "auto"/>
+                <ColumnDefinition Width = "auto"/>
+                <ColumnDefinition Width = "auto"/>
+                <ColumnDefinition Width = "auto"/>
+                <ColumnDefinition Width = "auto"/>
+            </Grid.ColumnDefinitions>
+            
+            
+            <!--Archipelago Toggles-->
+            <Label>Archipelago Toggles</Label>
+            <Grid Grid.Row = "1" Grid.Column = "0"
+                  Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "180"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row = "0" Grid.Column = "0" Content = "Archipelago Randomization" Name = "ArchiToggle" IsChecked="True"
+                          ToolTip = "If this is turned off, most of the settings on the left side don't work.&#10;However, purely patch-related items, such as the QOL or difficulty flags, still do."></CheckBox>
+                <CheckBox Grid.Row = "1" Grid.Column = "0" Content = "Death Link" Name = "DeathLink"
+                          ToolTip = "Whether to turn on Archipelago's Death Link feature."></CheckBox>
+                <Label Grid.Row = "2" Grid.Column = "0" Content = "ITEMS" FontWeight = "Bold"
+                       ToolTip = "Items you can get from other games."></Label>
+                <CheckBox Grid.Row = "3" Grid.Column = "0" Name = "ProLvl" Content = "Progressive Level Caps" IsChecked = "true" IsEnabled="{Binding IsChecked, ElementName=LvlCaps}"
+                          ToolTip = "Detaches the level caps from beating stratum bosses, instead providing them as an item for Archipelago to distribute."></CheckBox>
+                <CheckBox Grid.Row = "4" Grid.Column = "0" Name = "ProStrat" Content = "Progressive Stratum Access" IsChecked = "true"
+                          ToolTip = "Makes stratum access an Archipelago item.&#10;This technically only changes access to the Geomagnetic Field of each stratum, but it makes activating one a check."></CheckBox>
+                <CheckBox Grid.Row = "5" Grid.Column = "0" Name = "ProShop" Content = "Progressive Shop" IsChecked = "true"
+                          ToolTip = "If enabled, Sitoth no longer gets items based on what you sell. Instead, Archipelago will be given items to represent that natural growth."></CheckBox>
+                <CheckBox Grid.Row = "6" Grid.Column = "0" Name = "ProBag" Content = "Progressive Bag Size" IsEnabled = "false"
+                          ToolTip = "If enabled, your initial bag size is cut down to 20 slots, with Archipelago having items to increase it."></CheckBox>
+                <CheckBox Grid.Row = "7" Grid.Column = "0" Name = "ProMedals" Content = "Town Crown/Hero Mark" IsChecked = "true"
+                          ToolTip = "If enabled, this locks the events of getting the Town Crown/Hero Mark behind Archipelago items, late in progression. If not enabled, the events will fire normally."></CheckBox>
+                <CheckBox Grid.Row = "8" Grid.Column = "0" Name = "ClassLock" Content = "Class Access" IsEnabled = "false"
+                          ToolTip = "If enabled, most classes will be locked behind Archipelago checks. By default you are given a set of five unique ones, but you can change this behaviour below."></CheckBox>
+                <Label Grid.Row = "9" Grid.Column = "0" Content = "CHECK LOCATIONS" FontWeight = "Bold" 
+                       ToolTip = "Places you look to find Archipelago items."></Label>
+                <CheckBox Grid.Row = "10" Grid.Column = "0" Name = "CheckQuest" Content = "Quest Rewards" IsChecked = "true"
+                          ToolTip = "Missions and Quest rewards will be turned into checks."></CheckBox>
+                <CheckBox Grid.Row = "11" Grid.Column = "0" Name = "CheckGloss" Content = "In-Game Glossary Rewards" IsChecked = "true"
+                          ToolTip = "The Ental rewards you get for certain Compendium/Bestiary checkpoints will be turned into checks."></CheckBox>
+                <CheckBox Grid.Row = "12" Grid.Column = "0" Name = "CheckArbGlos" Content = "Arbitrary Glossary Rewards"
+                          ToolTip = "Every x% new entries in the Compendium/Bestiary will be a check. X is configurable down below."></CheckBox>
+                <CheckBox Grid.Row = "13" Grid.Column = "0" Name = "CheckArbGlosScaled" Content = "Goal-Scaled Glossary Rewards" IsEnabled="{Binding IsChecked, ElementName=CheckArbGlos}"
+                          ToolTip = "This scales the Arbitrary Glossary rewards down according to what is available according to your selected Goal.&#10;For example, only needing to find 10% of the enemies in the first Stratum if your goal is Chimera."></CheckBox>
+                <CheckBox Grid.Row = "14" Grid.Column = "0" Name = "CheckFloors" Content = "Per Floor" IsChecked = "true"
+                          ToolTip = "This makes every new floor a check."></CheckBox>
+                <CheckBox Grid.Row = "15" Grid.Column = "0" Name = "CheckLvlMiles" Content = "Level Milestones" IsChecked = "true"
+                          ToolTip = "A character reaching certain level milestones will be a check. Note that regardless of the hard level cap setting, these stop at 70."></CheckBox>
+                <CheckBox Grid.Row = "16" Grid.Column = "0" Name = "CheckNonSBosses" Content = "Non-Stratum Boss Kills"
+                          ToolTip = "Killing bosses that don't gate stratum access will be a check.&#10;Note that this means bosses locked behind quests (e.g. the elemental dragons) are worth two checks total if 'Quest Rewards' is enabled."></CheckBox>
+                <Label Grid.Row = "17" Grid.Column = "0" Content = "Arbitrary Glossary %s:" IsEnabled="{Binding IsChecked, ElementName=CheckArbGlos}"
+                       ToolTip = "The cumulative threshold used to determine a check when Arbitrary Glossary Rewards is enabled."></Label>
+                <ComboBox Grid.Row = "18" Grid.Column = "0" Name="CheckArbiGlosVal" SelectedIndex = "3" IsEnabled="{Binding IsChecked, ElementName=CheckArbGlos}">
+                    <ComboBoxItem Content="Every 1%" Tag="0" />
+                    <ComboBoxItem Content="Every 2%" Tag="1" />
+                    <ComboBoxItem Content="Every 5%" Tag="2" />
+                    <ComboBoxItem Content="Every 10%" Tag="3" />
+                    <ComboBoxItem Content="Every 20%" Tag="4" />
+                </ComboBox>
+                <Label Grid.Row = "19" Grid.Column = "0" Content = "Level Milestones:" 
+                       ToolTip = "When Level Milestones are enabled, this sets the threshold for each milestone." IsEnabled="{Binding IsChecked, ElementName=CheckLvlMiles}"></Label>
+                <ComboBox Grid.Row = "20" Grid.Column = "0" Name="CheckLvlMilesVal" SelectedIndex = "2" IsEnabled="{Binding IsChecked, ElementName=CheckLvlMiles}">
+                    <ComboBoxItem Content="Every Level (not recommended)" Tag="0" />
+                    <ComboBoxItem Content="Every 2 levels" Tag="1" />
+                    <ComboBoxItem Content="Every 5 levels (default)" Tag="2" />
+                    <ComboBoxItem Content="Every 7 levels" Tag="3" />
+                    <ComboBoxItem Content="Every 10 levels" Tag="4" />
+                    <ComboBoxItem Content="Every 12 levels" Tag="5" />
+                    <ComboBoxItem Content="Every 35 levels" Tag="6" />
+                    <ComboBoxItem Content="Only at level 70" Tag="7" />
+                </ComboBox>
+            </Grid>
+                
+            <!--Archipelago Settings-->
+            <Label Grid.Row = "0" Grid.Column = "1" >Randomizer Selections</Label>
+            <Grid Grid.Row = "1" Grid.Column = "1"
+                  Margin="0.5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "220"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row = "0" Grid.Column = "0" Content = "EXP Multiplier:"
+                       ToolTip = "In order to shorten a randomized playthrough, experience multipliers are recommended."></Label>
+                <ComboBox Grid.Row = "1" Grid.Column = "0" Name="ExpMult" SelectedIndex = "2" IsEnabled = "true">
+                    <ComboBoxItem Content="1x" Tag="0" />
+                    <ComboBoxItem Content="1.5x" Tag="1" />
+                    <ComboBoxItem Content="2x (recommended)" Tag="2" />
+                    <ComboBoxItem Content="3x" Tag="3" />
+                    <ComboBoxItem Content="4x" Tag="4" />
+                    <ComboBoxItem Content="5x" Tag="5" />
+                    <ComboBoxItem Content="10x" Tag="6" />
+                </ComboBox>
+                <Label Grid.Row = "2" Grid.Column = "0" Content = "Level Cap Increases:" IsEnabled="{Binding IsChecked, ElementName=LvlCaps}"
+                       ToolTip = "If you want more modular level cap increases, this is the place to set it.&#10; Only the 12 and 15 setting realistically work outside Archipelago!"></Label>
+                <ComboBox Grid.Row = "3" Grid.Column = "0" Name="LvlCapsVal" SelectedIndex = "2" IsEnabled="{Binding IsChecked, ElementName=LvlCaps}">
+                    <ComboBoxItem Content="5 Levels" Tag="1" />
+                    <ComboBoxItem Content="10 Levels" Tag="2" />
+                    <ComboBoxItem Content="12 Levels (default)" Tag="3" />
+                    <ComboBoxItem Content="15 (easier default) " Tag="4" />
+                </ComboBox>
+                <Label Grid.Row = "4" Grid.Column = "0" Content = "ARCHIPELAGO" FontWeight = "Bold"></Label>
+                <Label Grid.Row = "5" Grid.Column = "0" Content = "Goal:"
+                       ToolTip = "The expected endpoint of the Archipelago randomizer.&#10;Note that the Elemental Superbosses includes Briareus! "></Label>
+                <ComboBox Grid.Row = "6" Grid.Column = "0" Name="GoalVal">
+                    <ComboBoxItem Content="Chimera" Tag="1" />
+                    <ComboBoxItem Content="Hellion" Tag="2" />
+                    <ComboBoxItem Content="Wilhelm/Artelinde" Tag="3" />
+                    <ComboBoxItem Content="Scylla" Tag="4" />
+                    <ComboBoxItem Content="Harpuia" Tag="5" />
+                    <ComboBoxItem Content="Colossus" Tag="6" />
+                    <ComboBoxItem Content="Overlord" Tag="7" />
+                    <ComboBoxItem Content="Ur-Child" Tag="8" />
+                    <ComboBoxItem Content="Elemental Superbosses" Tag="9" />
+                    <ComboBoxItem Content="'The Beautiful Queen' completion" Tag="10" />
+                    <ComboBoxItem Content="Compendium Completion: 25%" Tag="11" />
+                    <ComboBoxItem Content="Compendium Completion: 50%" Tag="12" />
+                    <ComboBoxItem Content="Compendium Completion: 80%" Tag="13" />
+                    <ComboBoxItem Content="100% (Not recommended)" Tag="14" />
+                </ComboBox>
+                <Label Grid.Row = "7" Grid.Column = "0" Content = "# of filler item sets/stratum:"
+                       ToolTip = "In order to fill the item pool, you can have a certain amount of helpful items in the pool, which are tiered roughly by stratum access. &#10;These sets are labeled Medicinal, Armoire (armor), Arsenal (weapons), Trunks (accessories and shields), and Chests (ental)."></Label>
+                <ComboBox Grid.Row = "8" Grid.Column = "0" Name="FillerItems" SelectedIndex = "5">
+                    <ComboBoxItem Content="No Filler Items" Tag="0" />
+                    <ComboBoxItem Content="1 Filler Per Stratum" Tag="1" />
+                    <ComboBoxItem Content="1 Set Each Stratum" Tag="2" />
+                    <ComboBoxItem Content="1 Set Each + 1 additional Medicinal" Tag="3" />
+                    <ComboBoxItem Content="1 Set Each + 1 additional Medicinal/Chest" Tag="4" />
+                    <ComboBoxItem Content="2 Sets Each (default)" Tag="5" />
+                    <ComboBoxItem Content="3 Sets Each" Tag="6" />
+                    <ComboBoxItem Content="5 Sets Each" Tag="7" />
+                </ComboBox>
+                <Label Grid.Row = "9" Grid.Column = "0" Content = "Death Link mode:" IsEnabled="{Binding IsChecked, ElementName=DeathLink}"
+                       ToolTip = "Death Link comes in three flavours, if you enable it:&#10;Basic, which reduces a single party member to 1 HP and 1 TP;&#10;Punishing, which reduces your entire party to 1 HP and 1 TP;&#10;and Don't Do It, which immediately sends you to the Game Over screen."></Label>
+                <ComboBox Grid.Row = "10" Grid.Column = "0" Name="DeathLinkMode" SelectedIndex = "0" IsEnabled="{Binding IsChecked, ElementName=DeathLink}">
+                    <ComboBoxItem Content="Basic" Tag="1" />
+                    <ComboBoxItem Content="Punishing" Tag="2" />
+                    <ComboBoxItem Content="Don't Do It" Tag="3" />
+                </ComboBox>
+                <Label Grid.Row = "11" Grid.Column = "0" Content = "Progressive Shop mode:" IsEnabled="{Binding IsChecked, ElementName=ProShop}"
+                       ToolTip = "This sets whether the shop's progressive items are split up or not. Meant to add more items to the pool."></Label>
+                <ComboBox Grid.Row = "12" Grid.Column = "0" Name="ProShopVal" SelectedIndex = "0" IsEnabled="{Binding IsChecked, ElementName=ProShop}">
+                    <ComboBoxItem Content="All-In-One" Tag="1" />
+                    <ComboBoxItem Content="Items and Equipment" Tag="2" />
+                    <ComboBoxItem Content="Items, Weapons, and Equipment" Tag="3" />
+                </ComboBox>
+                <Label Grid.Row = "13" Grid.Column = "0" Content = "Progressive Bag mode:" IsEnabled="{Binding IsChecked, ElementName=ProBag}"
+                       ToolTip = "This sets how much bag space is added per Progressive Bag item."></Label>
+                <ComboBox Grid.Row = "14" Grid.Column = "0" Name="ProBagVal" SelectedIndex = "0" IsEnabled="{Binding IsChecked, ElementName=ProBag}">
+                    <ComboBoxItem Content="Default (20/item)" Tag="1" />
+                    <ComboBoxItem Content="10 spaces/item " Tag="2" />
+                    <ComboBoxItem Content="5 spaces/item" Tag="3" />
+                    <ComboBoxItem Content="2 spaces/item" Tag="4" />
+                    <ComboBoxItem Content="1 space/item" Tag="5" />
+                </ComboBox>
+                <Label Grid.Row = "15" Grid.Column = "0" Content = "Starting # of Classes:" IsEnabled="{Binding IsChecked, ElementName=ClassLock}"
+                       ToolTip = "When Class Access is enabled as a randomizer option, it adds each class as an item. It then randomly gives you this many as a starter item. ."></Label>
+                <ComboBox Grid.Row = "16" Grid.Column = "0" Name="ClassLockVal" SelectedIndex = "4" IsEnabled="{Binding IsChecked, ElementName=ClassLock}">
+                    <ComboBoxItem Content="1" Tag="1" />
+                    <ComboBoxItem Content="2" Tag="2" />
+                    <ComboBoxItem Content="3" Tag="3" />
+                    <ComboBoxItem Content="4" Tag="4" />
+                    <ComboBoxItem Content="5 (default)" Tag="5" />
+                    <ComboBoxItem Content="6" Tag="6" />
+                    <ComboBoxItem Content="7" Tag="7" />
+                    <ComboBoxItem Content="8" Tag="8" />
+                    <ComboBoxItem Content="9" Tag="9" />
+                    <ComboBoxItem Content="10" Tag="10" />
+                    <ComboBoxItem Content="11" Tag="11" />
+                </ComboBox>
+            </Grid>
+            
+            
+            <!--Other Randomization Flags-->
+                        <Label Grid.Row = "0" Grid.Column = "2" >Other Randomization Flags</Label>
+            <Grid Grid.Row = "1" Grid.Column = "2"
+                Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row = "0" Grid.Column = "0" Content = "" IsChecked = "true"
+                          ToolTip = ""></CheckBox>
+                
+                
+            <!--Difficulty Flags-->
+                <CheckBox Grid.Row = "1" Grid.Column = "0" Content = "Level Caps" IsChecked = "true" Name = "LvlCaps"
+                          ToolTip = "With an EXP multiplier, level caps are useful to prevent you from simply power-levelling beyond the next boss. &#10;This cap disappears once you beat Overlord."></CheckBox>
+                <Label Grid.Row = "2" Grid.Column = "0" Content = "" ></Label>
+            </Grid>
+            <!-- Quality of Life flags -->
+            <Label Grid.Row = "0" Grid.Column = "3" >Quality-of-Life Flags</Label>
+            <Grid Grid.Row = "1" Grid.Column = "3"
+                Margin="0.5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width = "auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row = "0" Grid.Column = "0" Name = "Q_FOEs" Content = "FOEs give experience" IsChecked = "true"
+                          ToolTip = "In EO2, FOEs don't normally give experience. This changes that, giving each FOE a roughly appropriate amount of EXP."></CheckBox>
+                <CheckBox Grid.Row = "1" Grid.Column = "0" Name = "Q_Conds" Content = "Conditionals always drop" IsChecked = "true"
+                          ToolTip = "Even when you meet conditional requirements, conditional items don't always drop in EO2. This sets them all to 100%, so if you meet the condition, you get the item."></CheckBox>
+                <CheckBox Grid.Row = "2" Grid.Column = "0" Name = "Q_Drops" Content = "Non-conditionals always drop" IsChecked = "true"
+                          ToolTip = "Similar to above, not all items drop all the time. This sets their drop rates to 100%, so if you meet the condition, you get the item."></CheckBox>
+                <CheckBox Grid.Row = "3" Grid.Column = "0" Name = "Q_NoCon" Content = "Remove conditional drop requirements"
+                          ToolTip = "This removes the conditional requirements for all drops. Note that this makes it very easy to farm Ental the moment you can kill a boss reliably."></CheckBox>
+                <CheckBox Grid.Row = "4" Grid.Column = "0" Name = "Q_LvlCap" Content = "Hard level cap is 99" IsChecked = "true"
+                          ToolTip = "In EO2, the only way to boost the level cap from 70 is retiring. This removes that and just sets it to 99."></CheckBox>
+                <CheckBox Grid.Row = "5" Grid.Column = "0" Name = "Q_Rest" Content = "Resting is free" IsChecked = "true"
+                          ToolTip = "This makes Resting costs 0 levels."></CheckBox>
+                <CheckBox Grid.Row = "6" Grid.Column = "0" Name = "Q_Retire" Content = "Retiring is free"
+                          ToolTip = "This makes Retiring return a character of the same level as the previous one."></CheckBox>
+                <CheckBox Grid.Row = "7" Grid.Column = "0" Name = "Q_BadCroc" Content = "Nerf Muckdile"
+                          ToolTip = "For those going to the 30th floor, Muckdile can end a run instantly. This makes him a little bit more fair; he can be stunned, can be killed with Climax, and Frolic now needs the legs to work."></CheckBox>
+                <Label Grid.Row = "9" Grid.Column = "0" Content = "CLASS REWORKS (eventually)" FontWeight = "Bold" 
+                       ToolTip = "EO2 is probably the worst-balanced game in the series. These are designed to help boost the less-helpful classes."></Label>
+                <CheckBox Grid.Row = "10" Grid.Column = "0" Name = "Re_L" Content = "Landsknecht" IsEnabled = "false"
+                          ToolTip = "Tries to give it a niche that isn't 'worse Ronin'."></CheckBox>
+                <CheckBox Grid.Row = "11" Grid.Column = "0" Name = "Re_S" Content = "Survivalist" IsEnabled = "false"
+                          ToolTip = "This dawg needs a full rework."></CheckBox>
+                <CheckBox Grid.Row = "12" Grid.Column = "0" Name = "Re_P" Content = "Protector" IsEnabled = "false"
+                          ToolTip = "Removes the RNG of Protector's various skills."></CheckBox>
+                <CheckBox Grid.Row = "13" Grid.Column = "0" Name = "Re_M" Content = "Medic" IsEnabled = "false"
+                          ToolTip = "Significantly improves Medic's speed."></CheckBox>
+                <CheckBox Grid.Row = "14" Grid.Column = "0" Name = "Re_A" Content = "Alchemist" IsEnabled = "false"
+                          ToolTip = "Improves Alchemist's scaling so that they are still good in later strata."></CheckBox>
+                <CheckBox Grid.Row = "15" Grid.Column = "0" Name = "Re_T" Content = "Troubadour" IsEnabled = "false"
+                          ToolTip = "Improves song speed? Maybe some ratios?"></CheckBox>
+                <CheckBox Grid.Row = "16" Grid.Column = "0" Name = "Re_B" Content = "Beast" IsEnabled = "false"
+                          ToolTip = "...Makes Loyalty optional? IDK what to do here."></CheckBox>
+                <CheckBox Grid.Row = "17" Grid.Column = "0" Name = "Re_Cookie" Content = "Cookie-cutter touch-ups" IsEnabled = "false"
+                          ToolTip = "Any tiny little adjustments to the cookie-cutter team. Here in case I need it, but no promises."></CheckBox>
+            </Grid>
+            
+        </Grid>
+    </StackPanel>
+    
 </Window>

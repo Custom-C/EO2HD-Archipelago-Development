@@ -1,0 +1,473 @@
+﻿<Window x:Class="EO2HD_Patcher.DungeonViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:EO2HD_Patcher"
+        mc:Ignorable="d"
+        Title="DungeonViewer" Height="720" Width="900"
+        Loaded="Window_Loaded">
+    <StackPanel>
+    <Grid 
+    Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width = "120"/>
+            <ColumnDefinition Width = "500"/>
+        </Grid.ColumnDefinitions>
+        <Button
+            Grid.Row = "0"
+            Grid.Column = "0"
+            Width = "120"
+            Content="Change Floor JSON" 
+
+            Click="ChangeDungeon">
+        </Button>
+        <Label
+            Name= "FilePathLabel"
+            Grid.Row = "0"
+            Grid.Column = "1"
+            >
+            <Label.Background>
+                PapayaWhip
+            </Label.Background>
+        </Label>
+    </Grid>
+        <!--I want the MapData to be visible on the right side, so I need a grid here
+to coincide with the grid for the map.
+        There's a bit too much data to be contained in one column, so MapData uses two columns.-->
+        <Grid
+            Margin = "2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <!-- 
+        Time for a big-ass grid for the map!
+        Apparently UniformGrid exists, so that's much better.-->
+            <UniformGrid
+                Name = "MapGrid"
+                Rows = "30"
+                Columns="35"
+                Width="630"
+                Height="540"
+                Background="Black"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Grid.Row = "0"
+                Grid.Column = "0"
+            ></UniformGrid>
+                <!--Now for a nested grid to contain the relevant single values -->
+                <Grid
+                    Grid.Column = "1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--Relevant details for a clicked tile -->
+                    
+                    <!--ChipNo -->
+                    <Label 
+                        Grid.Row = "0"
+                        Grid.Column="0"
+                        Content = "ChipNo"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "ChipNo"
+                        Grid.Row = "0"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--EncountUpRatio -->
+                    <Label 
+                        Grid.Row = "1"
+                        Grid.Column="0"
+                        Content = "EncountUpRatio"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "EncountUpRatio"
+                        Grid.Row = "1"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--EncountFixRatio -->
+                    <Label 
+                        Grid.Row = "2"
+                        Grid.Column="0"
+                        Content = "EncountFixRatio"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "EncountFixRatio"
+                        Grid.Row = "2"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--ItemGetType -->
+                    <Label 
+                        Grid.Row = "3"
+                        Grid.Column="0"
+                        Content = "ItemGetType"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "ItemGetType"
+                        Grid.Row = "3"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--EncountFg -->
+                    <Label 
+                        Grid.Row = "4"
+                        Grid.Column="0"
+                        Content = "EncountFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "EncountFg"
+                        Grid.Row = "4"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--HitFg -->
+                    <Label 
+                        Grid.Row = "5"
+                        Grid.Column="0"
+                        Content = "HitFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "HitFg"
+                        Grid.Row = "5"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--WalkCompFg -->
+                    <Label 
+                        Grid.Row = "6"
+                        Grid.Column="0"
+                        Content = "WalkCompFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "WalkCompFg"
+                        Grid.Row = "6"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--FoeRangeCheckFg -->
+                    <Label 
+                        Grid.Row = "7"
+                        Grid.Column="0"
+                        Content = "FoeRangeCheckFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "FoeRangeCheckFg"
+                        Grid.Row = "7"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--YddModel1CutFg -->
+                    <Label 
+                        Grid.Row = "8"
+                        Grid.Column="0"
+                        Content = "YddModel1CutFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "YddModel1CutFg"
+                        Grid.Row = "8"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--AnimFg -->
+                    <Label
+                        Grid.Row = "10"
+                        Grid.Column = "0"
+                        Content = "AnimFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "AnimFg"
+                        Grid.Row = "10"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--YddModel2CutFg -->
+                    <Label 
+                        Grid.Row = "11"
+                        Grid.Column="0"
+                        Content = "YddModel2CutFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "YddModel2CutFg"
+                        Grid.Row = "11"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--VisibleFg -->
+                    <Label 
+                        Grid.Row = "12"
+                        Grid.Column="0"
+                        Content = "VisibleFg"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "VisibleFg"
+                        Grid.Row = "12"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--EncountTblId -->
+                    <Label 
+                        Grid.Row = "13"
+                        Grid.Column="0"
+                        Content = "EncountTblId"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "EncountTblId"
+                        Grid.Row = "13"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                </Grid>
+            <!--A second part for the third column of data
+                However, this is going in a StackPanel-->
+            <StackPanel
+                Grid.Column = "2">
+                <!--AnchorData-->
+                <Label 
+                    Content = "ANCHOR DATA"
+                    FontWeight = "bold"></Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "auto"/>
+                        <ColumnDefinition Width = "auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--AnchorData. -->
+                    <Label 
+                        Grid.Row = "0"
+                        Grid.Column="0"
+                        Content = "rot"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "rot"
+                        Grid.Row = "0"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--AnchorData.jumpPos -->
+                    <Label 
+                        Grid.Row = "1"
+                        Grid.Column="0"
+                        Content = "jumpPos"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "jumpPos"
+                        Grid.Row = "1"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--AnchorData.enterDir -->
+                    <Label 
+                        Grid.Row = "2"
+                        Grid.Column="0"
+                        Content = "enterDir"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "enterDir"
+                        Grid.Row = "2"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                </Grid>
+                <!--StairData-->
+                <Label 
+                    Content = "STAIR DATA"
+                    FontWeight = "bold"></Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "auto"/>
+                        <ColumnDefinition Width = "auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--StairData.GoFloor -->
+                    <Label 
+                        Grid.Row = "0"
+                        Grid.Column="0"
+                        Content = "GoFloor"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "GoFloor"
+                        Grid.Row = "0"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--StairData.GoPosX -->
+                    <Label 
+                        Grid.Row = "1"
+                        Grid.Column="0"
+                        Content = "GoPosX"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "GoPosX"
+                        Grid.Row = "1"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--StairData.GoPosY -->
+                    <Label 
+                        Grid.Row = "2"
+                        Grid.Column="0"
+                        Content = "GoPosY"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "GoPosY"
+                        Grid.Row = "2"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--StairData.Rot -->
+                    <Label 
+                        Grid.Row = "3"
+                        Grid.Column="0"
+                        Content = "Rot"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "SDRot"
+                        Grid.Row = "3"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--StairData.EnterDir -->
+                    <Label 
+                        Grid.Row = "4"
+                        Grid.Column="0"
+                        Content = "EnterDir"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "SDEnterDir"
+                        Grid.Row = "4"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                </Grid>
+                <!--TbData-->
+                <Label 
+                    Content = "TB DATA"
+                    FontWeight = "bold"></Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width = "auto"/>
+                        <ColumnDefinition Width = "auto"/>
+                    </Grid.ColumnDefinitions>
+                    <!--TbData.ItemIdOrSum -->
+                    <Label 
+                        Grid.Row = "0"
+                        Grid.Column="0"
+                        Content = "ItemIdOrSum"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "ItemIdOrSum"
+                        Grid.Row = "0"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--TbData.TbId -->
+                    <Label 
+                        Grid.Row = "1"
+                        Grid.Column="0"
+                        Content = "TbId"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "TbId"
+                        Grid.Row = "1"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--TbData.TbType -->
+                    <Label 
+                        Grid.Row = "2"
+                        Grid.Column="0"
+                        Content = "TbType"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "TbType"
+                        Grid.Row = "2"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                    <!--TbData.Enable -->
+                    <Label 
+                        Grid.Row = "3"
+                        Grid.Column="0"
+                        Content = "Enable"
+                        FontWeight = "Bold">
+                    </Label>
+                    <Label
+                        Name = "Enable"
+                        Grid.Row = "3"
+                        Grid.Column="1"
+                        Content = "0">
+                    </Label>
+                </Grid>
+            </StackPanel>
+    </Grid>
+    </StackPanel>
+</Window>

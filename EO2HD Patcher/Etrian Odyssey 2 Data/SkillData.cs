@@ -10,6 +10,8 @@ namespace EO2HD_Patcher.Etrian_Odyssey_2_Data;
 //Because some of these are changed in HD they had to be made into Unity assets, so we can export the .JSONs used.
 //That doesn't mean they're simple to decode, though. See skill_decoding.txt for details.
 
+//Note that in the IL2CPPInspector's decompilations, you can find these in global.cs
+
     
     //an abstract class that contains the details for both player and enemy skills.
 public abstract class SkillData 
